@@ -1,0 +1,7 @@
+# pnpm settings (single package, not a workspace).
+
+# `pnpm add x` writes an exact version (1.2.3, not ^1.2.3).
+saveExact: true
+
+# Dependency install scripts are off unless listed here with a reason.
+allowBuilds: {}

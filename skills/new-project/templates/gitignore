@@ -1,0 +1,11 @@
+node_modules/
+
+# Secrets and personal config.
+/config.toml
+/.env
+
+# Runtime data: the folder is kept (with its README); everything in it is ignored.
+/data/*
+!/data/README.md
+
+.DS_Store

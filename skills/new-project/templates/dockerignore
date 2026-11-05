@@ -1,0 +1,11 @@
+# Only package files, tsconfig.json and src/ go into the image; data and secrets never do.
+**/node_modules
+/data
+/config.toml
+/.env
+**/*.test.ts
+/test
+/docs
+/.git
+/.vscode
+**/.DS_Store
