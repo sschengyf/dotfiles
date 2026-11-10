@@ -8,6 +8,7 @@ How I like to build software, in any project. A project's own `AGENTS.md` / `CLA
 - **Plan before code.** For anything beyond a small fix, write or update a plan document (`PLAN.md`) first: stages, design decisions, acceptance criteria. Expect several review rounds before implementing. When the design changes later, update the plan before the code.
 - Decisions that are mine to make (naming, user-facing behaviour, scope, trade-offs): ask, with a recommendation. Details the plan leaves open: pick the simplest testable option and note it.
 - **One stage at a time.** A stage is done when its acceptance criteria pass and I have tried it myself.
+- **Review every stage.** When a stage is implemented, have a separate reviewer agent (`code-reviewer`) review its diff, and fix the findings before reporting it done.
 - **Commit only when I ask.** Keep commits focused: plan changes and code changes go in separate commits.
 - Report honestly what was verified: unit tests, a live run, or nothing. Say so when something was skipped.
 - Fix bugs when they are found rather than leaving them for later, but ask before expanding scope.

@@ -1,6 +1,6 @@
 ---
 name: deliver-stage
-description: Finish a stage or change properly before calling it done — run every check, verify for real where tests are not enough, update PLAN.md/README/docs, report honestly what was and was not verified, and wait for the user to say commit. Use when a stage or feature is implemented, when the user asks "做完了吗" / "都测试了吗", or before proposing a commit.
+description: Finish a stage or change properly before calling it done — run every check, review the code at the end of each stage, verify for real where tests are not enough, update PLAN.md/README/docs, report honestly what was and was not verified, and wait for the user to say commit. Use when a stage or feature is implemented, when the user asks "做完了吗" / "都测试了吗", or before proposing a commit.
 ---
 
 # Deliver a stage
@@ -26,7 +26,16 @@ All must pass. Do not weaken a test, a lint rule or a type to make them pass; if
 
 For a bug fix, the new test must fail before the fix and pass after it — run it both ways.
 
-## 3. Verify for real
+## 3. Review the code
+
+When a stage is implemented and the checks pass, review the whole stage before reporting it done. The review is done by a separate agent with fresh context, not by the agent that wrote the code.
+
+- Launch the `code-reviewer` subagent (Agent tool). Give it the git range of the stage (uncommitted changes, or the commits since the stage began) and the stage's section of `PLAN.md`. If the agent is not installed, run `/code-review` instead and say so in the report.
+- The reviewer only reports. Check each finding yourself before acting on it; a reviewer can be wrong.
+- Fix real findings, then rerun the checks from step 2. A finding that would expand scope or change a plan decision: ask first.
+- Findings you judge not worth fixing: say which and why in the report; do not drop them silently.
+
+## 4. Verify for real
 
 Unit tests are not enough when the change touches the outside world:
 
@@ -37,7 +46,7 @@ Unit tests are not enough when the change touches the outside world:
 
 Never print secrets while doing this.
 
-## 4. Update the docs
+## 5. Update the docs
 
 - `README.md`: new commands, config options, setup steps, troubleshooting.
 - `config.example.*`, `data/README.md`: new settings or files.
@@ -45,18 +54,19 @@ Never print secrets while doing this.
 - `AGENTS.md`: any new rule or pattern we settled on during the stage.
 - Every copy of duplicated text (e.g. a prompt quoted in the plan) stays in sync.
 
-## 5. Report
+## 6. Report
 
 In Chinese, short:
 
 - What changed (files or areas, one line each).
 - Checks: results with numbers (e.g. "277 tests × 2 时区通过，lint、typecheck 通过").
+- Code review: findings, what was fixed, what was left and why.
 - Verified for real: what was run and what was seen.
 - **Not verified**: anything only covered by unit tests, anything the user must try, any check skipped and why. Be explicit; do not imply more than was done.
 - What the user should try, as concrete steps.
 - Open questions or follow-ups.
 
-## 6. Commit only when asked
+## 7. Commit only when asked
 
 Do not commit until the user says so (e.g. "提交", "试了，可以，提交"). Then:
 
