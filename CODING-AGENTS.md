@@ -34,6 +34,10 @@ How I like to build software, in any project. A project's own `AGENTS.md` / `CLA
   - Depend on interfaces at the boundaries (model clients, chat platforms, storage) so a new implementation is added without changing callers.
   - Pass functions only what they use (`Pick<Config, ...>`, not the whole config).
   - Each module exposes a small public API (`index.ts`); nothing reaches into another module's files.
+- **DRY.**
+  - Every piece of knowledge (a rule, a constant, a schema, a format) has one source of truth; derive the rest from it (e.g. types from a schema, not both by hand).
+  - Extract shared logic once it repeats for the same reason; code that only looks alike but changes for different reasons stays separate.
+  - Before writing a helper, look for an existing one to reuse.
 - **Functional by default.**
   - Pure functions for logic; side effects (network, files, clock, randomness) at the edges. Pass `now` in rather than reading the clock inside logic.
   - Errors that are expected are values (`{ ok, ... }` results), not exceptions.
